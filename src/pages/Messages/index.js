@@ -12,7 +12,7 @@ import {ThemeProvider} from "@mui/material";
 import Container from "@mui/material/Container";
 const theme = createTheme()
 
-export default function Messages() {
+export default function Index() {
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);

@@ -145,7 +145,9 @@ export default function Sidebar() {
           </ListItemIcon>
           <ListItemText primary="Messages"/>
         </ListItemButton>
-        <ListItemButton>
+        <ListItemButton onClick={() => {
+          navigate("/notifications")
+        }}>
           <ListItemIcon>
             <FavoriteBorder/>
           </ListItemIcon>

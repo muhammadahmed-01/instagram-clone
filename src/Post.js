@@ -15,7 +15,13 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import {Link} from "react-router-dom"
 import {
-  MoreHorizOutlined, Favorite, FavoriteBorder, Message, Send, BookmarkBorderOutlined, InsertEmoticonOutlined
+  MoreHorizOutlined,
+  Favorite,
+  FavoriteBorder,
+  Message,
+  Send,
+  BookmarkBorderOutlined,
+  InsertEmoticonOutlined
 } from '@mui/icons-material';
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import {useContext, useEffect, useState} from "react";
@@ -28,7 +34,10 @@ const darkTheme = createTheme({
   },
 });
 
-export default function Post({postId, username, url, caption, likes, comments, timestamp}) {
+export default function Post({
+                               postId, username, url, caption, likes, comments,
+                               timestamp
+                             }) {
   const [commentsArr, setCommentsArr] = useState(comments)
   const [comment, setComment] = useState('')
   const userData = JSON.parse(localStorage.getItem("userData"));
@@ -59,11 +68,12 @@ export default function Post({postId, username, url, caption, likes, comments, t
 
   const postComment = async (evt) => {
     evt.preventDefault()
-    const res = await axios.post("/api/comments", {
+    const res = await axios.post(`/api/comments/`, {
       postId: postId,
-      commentText: comment
-    }, configData)
-    // console.log("Comments = ", res.data[0].comments)
+      content: comment,
+    }, configData);
+    // console.log("res = ", res)
+
     setCommentsArr(res.data[0].comments)
     setComment('')
   }
@@ -87,7 +97,11 @@ export default function Post({postId, username, url, caption, likes, comments, t
     } else {
       try {
         try {
-          const res = await axios.post(`/api/like/`, {postId: postId}, configData);
+          const res = await axios.post(`/api/like/`, {
+              postId: postId,
+              userId: userData.id
+            },
+            configData);
           setLikesArr(res.data);
         } catch (err) {
           console.error(err.message);
@@ -133,7 +147,7 @@ export default function Post({postId, username, url, caption, likes, comments, t
       </ImageListItem>
       <Box>
         <IconButton onClick={() => handleLike()}>
-          {unlikeAllowed ? <Favorite /> : <FavoriteBorder/>}
+          {unlikeAllowed ? <Favorite/> : <FavoriteBorder/>}
         </IconButton>
         <IconButton>
           <Message/>
@@ -146,7 +160,8 @@ export default function Post({postId, username, url, caption, likes, comments, t
         </IconButton>
       </Box>
       <Stack direction="row" sx={{padding: "0vw 0.5vw"}}>
-        <Typography>{likesArr.length > 0 ? likesArr.length + ' likes' : '0 likes'}</Typography>
+        <Typography>{likesArr.length > 0 ? likesArr.length + ' likes' :
+          '0 likes'}</Typography>
       </Stack>
       <Stack direction="row" sx={{padding: "0.5vh 0.5vw"}}>
         <Typography sx={{fontWeight: 'bold'}}>{username}&nbsp;</Typography>
@@ -154,14 +169,17 @@ export default function Post({postId, username, url, caption, likes, comments, t
       </Stack>
       <Stack direction={"column"}>
         {commentsArr && commentsArr.map((comment) => (
-          <Stack key={comment._id} direction="row" sx={{padding: "0.5vh 0.5vw"}}>
-            <Typography sx={{fontWeight: 'bold'}}>{comment.user.name}&nbsp;</Typography>
+          <Stack key={comment._id} direction="row"
+                 sx={{padding: "0.5vh 0.5vw"}}>
+            <Typography
+              sx={{fontWeight: 'bold'}}>{comment.user.name}&nbsp;</Typography>
             <Typography>{comment.text}</Typography>
           </Stack>
         ))}
       </Stack>
       <Stack direction={"row"} sx={{padding: "1vh 0.5vw"}}>
-        <Typography variant="caption">{new Date(timestamp).getHours()}&nbsp;{"HOURS AGO"}</Typography>
+        <Typography variant="caption">{new Date(
+          timestamp).getHours()}&nbsp;{"HOURS AGO"}</Typography>
       </Stack>
       <Divider/>
       <TextField
@@ -176,7 +194,8 @@ export default function Post({postId, username, url, caption, likes, comments, t
               <InsertEmoticonOutlined/>
             </IconButton>
           </InputAdornment>), endAdornment: (<InputAdornment position={"end"}>
-            <Button variant={"contained"} disabled={!comment} type={"submit"} onClick={postComment}>{"Post"}</Button>
+            <Button variant={"contained"} disabled={!comment} type={"submit"}
+                    onClick={postComment}>{"Post"}</Button>
           </InputAdornment>)
         }}>
       </TextField>

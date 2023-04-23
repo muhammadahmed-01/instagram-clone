@@ -8,8 +8,8 @@ import ProfileForm from './ProfileForm';
 import Home from "./Home";
 import Search from "./Search";
 import UserProvider from "./UserContext"
-import Messages from "./pages/Messages/Messages";
-
+import Messages from "./pages/Messages";
+import Notifications from "./pages/Notifications"
 
 function App() {
   return (
@@ -21,8 +21,9 @@ function App() {
             <Route path="/search" element={<Search/>}/>
             <Route path="/profile" element={<Profile/>}/>
             <Route path="/profile-edit" element={<ProfileForm/>}/>
+            <Route path="/messages" element={<Messages/>}/>
+            <Route path="/notifications" element={<Notifications/>}/>
           </Route>
-          <Route path="/messages" element={<Messages/>}/>
           <Route exact path="/signup" element={<Signup/>}/>
           <Route exact path="/login" element={<Login/>}/>
         </Routes>
