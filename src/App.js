@@ -1,13 +1,13 @@
 import './App.css';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import Login from './Login';
-import PrivateRoute from './PrivateRoute';
-import Signup from './Signup';
-import Profile from './Profile';
-import ProfileForm from './ProfileForm';
-import Home from "./Home";
-import Search from "./Search";
-import UserProvider from "./UserContext"
+import Login from './pages/Login/Login';
+import PrivateRoute from './utils/PrivateRoute';
+import Signup from './pages/Signup';
+import Profile from './pages/Profile';
+import ProfileForm from './pages/ProfileForm';
+import Home from "./pages/Home";
+import Search from "./pages/Search";
+import UserProvider from "./utils/UserContext"
 import Messages from "./pages/Messages";
 import Notifications from "./pages/Notifications"
 

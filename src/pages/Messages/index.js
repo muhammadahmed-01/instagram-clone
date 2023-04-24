@@ -1,18 +1,15 @@
 import "./Messages.css";
-import Conversation from "../../components/conversation/conversation";
-import Message from "../../components/message/message";
+import Conversation from "../../components/conversation";
+import Message from "../../components/message";
 import { useContext, useEffect, useRef, useState } from "react";
-import {UserContext} from "../../UserContext";
-import axios from "../../axiosInstance";
+import axios from "../../utils/axiosInstance";
 import { io } from "socket.io-client";
-import Sidebar from "../../Sidebar";
 import React from "react";
 import {createTheme} from "@mui/material/styles";
-import {ThemeProvider} from "@mui/material";
 import Container from "@mui/material/Container";
-const theme = createTheme()
+import Layout from "../../components/layout";
 
-export default function Index() {
+export default function Messages() {
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -104,8 +101,7 @@ export default function Index() {
   }, [messages]);
 
   return (
-    <ThemeProvider theme={theme}>
-      <Sidebar sx={{float: "left"}}/>
+    <Layout>
       <Container sx={{float: "right"}}>
         <div className="messenger">
           <div className="chatMenu">
@@ -150,6 +146,6 @@ export default function Index() {
           </div>
         </div>
       </Container>
-    </ThemeProvider>
+    </Layout>
   );
 }

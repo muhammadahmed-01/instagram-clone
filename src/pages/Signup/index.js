@@ -1,11 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
+import '../../App.css';
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -13,14 +10,14 @@ import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import Alert from '@mui/material/Alert'
 import * as React from "react";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useForm} from "react-hook-form"
 import {yupResolver} from '@hookform/resolvers/yup'
 import * as yup from "yup"
 import {IconButton, InputAdornment, Snackbar} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
-import { ReactComponent as InstagramLogo } from './instagram-logo.svg';
-import axios from "axios"
+import {ReactComponent as InstagramLogo} from '../../instagram-logo.svg';
+import axios from "../../utils/axiosInstance"
 import {useNavigate} from "react-router-dom"
 
 const theme = createTheme();
@@ -53,7 +50,8 @@ function App() {
       .max(50, 'Password is too long'),
   }).required();
 
-  const {register, handleSubmit, getValues, formState: {errors}} = useForm({resolver: yupResolver(validationSchema)});
+  const {register, handleSubmit, getValues, formState: {errors}} = useForm(
+    {resolver: yupResolver(validationSchema)});
   const email = register('email')
   const fullName = register('fullName')
   const username = register('username')
@@ -85,30 +83,17 @@ function App() {
       e.preventDefault()
       setError("")
       console.log("Signup called")
-      await axios.post("http://localhost:3001/api/auth/signup", {name: getValues("fullName"), email: getValues("email"), password: getValues("password")})
+      await axios.post("/api/auth/signup", {
+        name: getValues("fullName"), email: getValues("email"),
+        password: getValues("password")
+      })
       setShowAlert(true);//if user is sign up successfully set showalert to true.
       navigate("/login")
-      // const Email = getValues('email')
-      // const Password = getValues('password')
-      // const object = {
-      //   First_Name, Last_Name, Email, Password
-      // };
-      // await axios.post('/api/signup', object);
-      // const timer = setTimeout(() => router.push("/"), 500);
-      // return () => clearTimeout(timer);
     } catch (err) {
       setError("Failed to login: " + err.message)
       setShowAlert(false);
     }
   };
-
-  // const Alert = React.forwardRef(function Alert(props, ref) {
-  //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  // });
-
-  useEffect(() => {
-    // Prefetch the login page
-  }, [])
 
   return (
     <ThemeProvider theme={theme}>
@@ -124,14 +109,13 @@ function App() {
             padding: "4vh 2vw",
           }}
         >
-          <InstagramLogo width={"12vw"} height={"10vh"} />
+          <InstagramLogo width={"12vw"} height={"10vh"}/>
           <Typography component="h2" variant="h5">
             Sign up to see photos and videos from your friends.
             mobile num or email field
           </Typography>
           <form noValidate
                 style={{marginTop: 3}}>
-            {/*{error && < Alert severity="error" sx={{mb: 3}}>{error}</Alert>}*/}
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -164,22 +148,6 @@ function App() {
                   variant="outlined"
                 />
               </Grid>
-              {/*<Grid item xs={12}>*/}
-              {/*  <TextField*/}
-              {/*    required*/}
-              {/*    fullWidth*/}
-              {/*    name="username"*/}
-              {/*    label="Username"*/}
-              {/*    autoComplete="username"*/}
-              {/*    id="username"*/}
-              {/*    inputRef={username.ref}*/}
-              {/*    error={errors.username}*/}
-              {/*    onBlur={username.onBlur}*/}
-              {/*    helperText={errors.username?.message}*/}
-              {/*    onChange={username.onChange}*/}
-              {/*    variant="outlined"*/}
-              {/*  />*/}
-              {/*</Grid>*/}
               <Grid item xs={12}>
                 <TextField
                   required
@@ -214,12 +182,15 @@ function App() {
               </Grid>
               <Grid item xs={12}>
                 <Typography>
-                  People who use our service may have uploaded your contact information to Instagram. Learn More
-                  By signing up, you agree to our Terms , Privacy Policy and Cookies Policy .
+                  People who use our service may have uploaded your contact
+                  information to Instagram. Learn More
+                  By signing up, you agree to our Terms , Privacy Policy and
+                  Cookies Policy .
                 </Typography>
               </Grid>
             </Grid>
-            <Button type="submit" fullWidth variant="contained" onClick={handleSignup}
+            <Button type="submit" fullWidth variant="contained"
+                    onClick={handleSignup}
                     sx={{mt: 3, mb: 2}}>
               Sign up
             </Button>
@@ -241,14 +212,10 @@ function App() {
           border: "1px solid rgb(219, 219, 219)",
           padding: "2vh 2vw"
         }}>
-          {/*<Grid container spacing={2}>*/}
-          {/*  <Grid item xs={12}>*/}
           <Typography>Have an account?&nbsp;</Typography>
-          <Link sx={{textDecoration: "none"}} variant="body2" href="/login">
+          <Link sx={{textDecoration: "none"}} variant="body2" href="/Login/Login">
             {"Login"}
           </Link>
-          {/*</Grid>*/}
-          {/*</Grid>*/}
         </Box>
       </Container>
     </ThemeProvider>

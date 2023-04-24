@@ -7,34 +7,21 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import {Link, useNavigate} from "react-router-dom";
 import {
-  Alert,
   Avatar,
-  Box,
-  Button,
   Card,
   CardMedia,
-  Container,
-  Divider,
-  Modal,
-  Typography
 } from "@mui/material";
 import {
   Search,
-  ExploreOutlined,
   FavoriteBorder,
   AddBoxOutlined,
   Home,
   Message,
-  Movie,
   Menu,
   Login,
   Logout
 } from '@mui/icons-material';
-import {UserContext} from "./UserContext";
-// import {useRouter} from "next/router"
-// import {useAuth} from "../contexts/AuthContext";
-// import ImageUpload from "./ImageUpload";
-import InstagramLogo from './instagram-logo.svg';
+import InstagramLogo from '../../instagram-logo.svg';
 
 const drawerWidth = 245;
 
@@ -64,17 +51,13 @@ const Drawer = styled(MuiDrawer,
 }));
 
 
-export default function Sidebar() {
+export default function Index() {
   const [open, setOpen] = useState(false);
-  // const [user, setUser] = useContext(UserContext);
   const user = JSON.parse(localStorage.getItem("userData"));
   const [username, setUsername] = useState(user?.email.split("@")[0])
   const PF = process.env.REACT_APP_PUBLIC_IMAGE_FOLDER;
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const navigate = useNavigate();
-  // const router = useRouter()
-  // const {logout} = useAuth()
 
   const clickLogin = () => {
     navigate("/login")
@@ -125,18 +108,18 @@ export default function Sidebar() {
           </ListItemIcon>
           <ListItemText primary="Search"/>
         </ListItemButton>
-        <ListItemButton>
-          <ListItemIcon>
-            <ExploreOutlined/>
-          </ListItemIcon>
-          <ListItemText primary="Explore"/>
-        </ListItemButton>
-        <ListItemButton>
-          <ListItemIcon>
-            <Movie/>
-          </ListItemIcon>
-          <ListItemText primary="Reels"/>
-        </ListItemButton>
+        {/*<ListItemButton>*/}
+        {/*  <ListItemIcon>*/}
+        {/*    <ExploreOutlined/>*/}
+        {/*  </ListItemIcon>*/}
+        {/*  <ListItemText primary="Explore"/>*/}
+        {/*</ListItemButton>*/}
+        {/*<ListItemButton>*/}
+        {/*  <ListItemIcon>*/}
+        {/*    <Movie/>*/}
+        {/*  </ListItemIcon>*/}
+        {/*  <ListItemText primary="Reels"/>*/}
+        {/*</ListItemButton>*/}
         <ListItemButton onClick={() => {
           navigate("/messages")
         }}>
@@ -198,14 +181,6 @@ export default function Sidebar() {
           <ListItemText primary="More"/>
         </ListItemButton>
       </List>
-      {/*<Modal*/}
-      {/*  open={open}*/}
-      {/*  onClose={handleClose}*/}
-      {/*  aria-labelledby="modal-modal-title"*/}
-      {/*  aria-describedby="modal-modal-description"*/}
-      {/*>*/}
-      {/*  /!*<ImageUpload/>*!/*/}
-      {/*</Modal>*/}
     </Drawer>
   )
 }

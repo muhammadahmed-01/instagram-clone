@@ -1,7 +1,7 @@
 import "./message.css";
 import { format } from "timeago.js";
 import {useEffect, useState} from "react";
-import axios from "../../axiosInstance";
+import axios from "../../utils/axiosInstance";
 
 export default function Message({ message, own }) {
   const [user, setUser] = useState(null);
@@ -26,14 +26,14 @@ export default function Message({ message, own }) {
           className="messageImg"
           src={
             user?.profilePic
-              ? PF + user.profilePic
+              ? PF + user?.profilePic
               : PF + "/noPic.jpg"
           }
           alt=""
         />
-        <p className="messageText">{message.text}</p>
+        <p className="messageText">{message?.text}</p>
       </div>
-      <div className="messageBottom">{format(message.createdAt)}</div>
+      <div className="messageBottom">{format(message?.createdAt)}</div>
     </div>
   );
 }

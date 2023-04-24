@@ -1,4 +1,4 @@
-import axios from "../../axiosInstance";
+import axios from "../../utils/axiosInstance";
 import { useEffect, useState } from "react";
 import "./conversation.css";
 

@@ -15,14 +15,14 @@ import {yupResolver} from '@hookform/resolvers/yup'
 import * as yup from "yup"
 import {IconButton, InputAdornment, Snackbar} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
-import {ReactComponent as InstagramLogo} from './instagram-logo.svg';
-import axios from "./axiosInstance";
+import {ReactComponent as InstagramLogo} from '../../instagram-logo.svg';
+import axios from "../../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
-import {UserContext} from "./UserContext";
+import {UserContext} from "../../utils/UserContext";
 
 const theme = createTheme();
 
-function App() {
+function Login() {
   const [error, setError] = useState("")
   const [showAlert, setShowAlert] = React.useState(false)
   const [values, setValues] = React.useState({
@@ -95,14 +95,6 @@ function App() {
     }
   };
 
-  // const Alert = React.forwardRef(function Alert(props, ref) {
-  //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  // });
-
-  useEffect(() => {
-    // Prefetch the login page
-  }, [])
-
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -117,13 +109,9 @@ function App() {
             padding: "4vh 2vw",
           }}
         >
-          {/*<Typography component="h1" variant="h5">*/}
-          {/*  Login*/}
-          {/*</Typography>*/}
           <InstagramLogo width={"12vw"} height={"10vh"}/>
           <form onSubmit={handleSubmit(handleSignIn, onError)} noValidate
                 style={{marginTop: 3}}>
-            {/*{error && < Alert severity="error" sx={{mb: 3}}>{error}</Alert>}*/}
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -202,18 +190,14 @@ function App() {
           border: "1px solid rgb(219, 219, 219)",
           padding: "2vh 2vw"
         }}>
-          {/*<Grid container spacing={2}>*/}
-          {/*  <Grid item xs={12}>*/}
           <Typography>Don't have an account?&nbsp;</Typography>
-          <Link sx={{textDecoration: "none"}} variant="body2" href="/signup">
+          <Link sx={{textDecoration: "none"}} variant="body2" href="/src/pages/Signup/Signup">
             {"Sign up"}
           </Link>
-          {/*</Grid>*/}
-          {/*</Grid>*/}
         </Box>
       </Container>
     </ThemeProvider>
   );
 }
 
-export default App;
+export default Login;

@@ -23,42 +23,23 @@ import {
   BookmarkBorderOutlined,
   InsertEmoticonOutlined
 } from '@mui/icons-material';
-import {createTheme, ThemeProvider} from "@mui/material/styles";
-import {useContext, useEffect, useState} from "react";
-import axios from "./axiosInstance";
-import {UserContext} from "./UserContext";
+import {createTheme} from "@mui/material/styles";
+import {useState} from "react";
+import axios from "../../utils/axiosInstance";
 
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
-});
-
-export default function Post({
+export default function Index({
                                postId, username, url, caption, likes, comments,
                                timestamp
                              }) {
   const [commentsArr, setCommentsArr] = useState(comments)
   const [comment, setComment] = useState('')
   const userData = JSON.parse(localStorage.getItem("userData"));
-  console.log("userData = ", userData);
-  // const [user, setUser] = useContext(UserContext);
-  // const [unlikeAllowed, setUnlikeAllowed] = useState();
   const [unlikeAllowed, setUnlikeAllowed] = useState(likes.some(
     (like) =>
       like._id.toString() === userData.id.toString()
   ));
 
   const [likesArr, setLikesArr] = useState(likes)
-
-  // console.log(likes.some(
-  //   (like) => like._id === localStorage.getItem("userId")
-  // ))
-  // console.log("Comments = ", commentsArr)
-  // console.log("Logging comments line by line");
-  // for (const c of commentsArr) {
-  //   console.log(c);
-  // }
 
   const configData = {
     headers: {
@@ -132,7 +113,7 @@ export default function Post({
         sx={{padding: "2vh 1vh"}}
       >
         <Avatar sx={{display: "border-box"}}/>
-        <Link to={"#"} sx={{display: "inline-block"}}> {username} </Link>
+        <Link to={`/profile?username=${username}`} sx={{display: "inline-block"}}> {username} </Link>
         <IconButton aria-label="options">
           <MoreHorizOutlined/>
         </IconButton>

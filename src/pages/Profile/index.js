@@ -11,14 +11,13 @@ import {
   ImageList,
   ImageListItem
 } from "@mui/material";
-// import {Link} from "react-router-dom";
-import Sidebar from "./Sidebar"
-import {createTheme, ThemeProvider} from "@mui/material/styles";
 import PropTypes from "prop-types";
-import axios from "./axiosInstance"
+import axios from "../../utils/axiosInstance"
 import {useLocation, useNavigate} from "react-router-dom";
-import {UserContext} from "./UserContext";
-const theme = createTheme()
+import Layout from "../../components/layout";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 
 function TabPanel(props) {
   const {children, value, index, ...other} = props;
@@ -33,18 +32,18 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{p: 3}}>
-          {/*<ImageList sx={{ width: "100%", height: "100%", overflowY: "hidden" }} cols={3} rowHeight={164}>*/}
-          {/*  {itemData.map((item) => (*/}
-          {/*    <ImageListItem key={item.img}>*/}
-          {/*      <img*/}
-          {/*        src={`${item.img}?fit=crop&auto=format`}*/}
-          {/*        srcSet={`${item.img}?fit=crop&auto=format&dpr=2 2x`}*/}
-          {/*        alt={item.title}*/}
-          {/*        loading="lazy"*/}
-          {/*      />*/}
-          {/*    </ImageListItem>*/}
-          {/*  ))}*/}
-          {/*</ImageList>*/}
+          <ImageList sx={{ width: "100%", height: "100%", overflowY: "hidden" }} cols={2} rowHeight={300}>
+            {itemData.map((item) => (
+              <ImageListItem key={item.img}>
+                <img
+                  src={`${item.img}?fit=crop&auto=format`}
+                  srcSet={`${item.img}?fit=crop&q=10&auto=format&dpr=2 2x`}
+                  alt={item.title}
+                  // loading="lazy"
+                />
+              </ImageListItem>
+            ))}
+          </ImageList>
         </Box>
       )}
     </div>
@@ -65,24 +64,17 @@ function a11yProps(index) {
 }
 
 export default function ProfilePage() {
-  // const classes = useProfilePageStyles();
   const [value, setValue] = React.useState(0);
   const [username, setUsername] = React.useState("");
   const [profilePic, setProfilePic] = React.useState("");
   const [numOfPosts, setNumOfPosts] = React.useState();
   const [numOfFollowers, setNumOfFollowers] = React.useState();
   const [numOfFollowing, setNumOfFollowing] = React.useState();
-  // const [userData, setUserData] = React.useState("");
   const PF = process.env.REACT_APP_PUBLIC_IMAGE_FOLDER;
   const [followStatus, setFollowStatus] = React.useState("");
-  // const [user, setUser] = useContext(UserContext);
   const currentUser = JSON.parse(localStorage.getItem("userData"));
   const [user, setUser] = React.useState(null);
   const navigate = useNavigate()
-  // const num_of_posts = "darkshadowft";
-  // const num_of_followers = "darkshadowft";
-  // const num_of_following = "darkshadowft";
-  // const full_name = "darkshadowft";
 
   const configData = {
     headers: {
@@ -140,16 +132,12 @@ export default function ProfilePage() {
 // Make a POST request to create a new post using Axios
     axios.post("/api/posts", postData)
       .then(response => {
-        // Handle successful response here
         console.log(response.data);
       })
       .catch(error => {
-        // Handle errors here
         console.error(error);
       });
   }
-
-  // const value = "posts"
 
   useEffect(() => {
     (async () => {
@@ -161,7 +149,6 @@ export default function ProfilePage() {
         .then(response => {
           const data = response.data;
           setUser(data)
-          // console.log(JSON.stringify(data))
           setUsername(data?.email.split("@")[0]);
           setProfilePic(data?.profilePic);
           setNumOfPosts(data?.posts.length);
@@ -182,8 +169,7 @@ export default function ProfilePage() {
   }, [paramValue])
 
   return (
-    <ThemeProvider theme={theme}>
-      <Sidebar sx={{float: "left"}}/>
+    <Layout>
       <Container sx={{float: "right"}}>
         <Container sx={{
           height: "20vh", display: "flex",
@@ -269,7 +255,8 @@ export default function ProfilePage() {
           {/*</TabPanel>*/}
         </Container>
       </Container>
-    </ThemeProvider>
+    </Layout>
+
   );
 }
 
@@ -290,24 +277,24 @@ const itemData = [
     img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
     title: 'Coffee',
   },
-  {
-    img: 'https://images.unsplash.com/photo-1533827432537-70133748f5c8',
-    title: 'Hats',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62',
-    title: 'Honey',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1516802273409-68526ee1bdd6',
-    title: 'Basketball',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1518756131217-31eb79b20e8f',
-    title: 'Fern',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1597645587822-e99fa5d45d25',
-    title: 'Mushrooms',
-  },
+  // {
+  //   img: 'https://images.unsplash.com/photo-1533827432537-70133748f5c8',
+  //   title: 'Hats',
+  // },
+  // {
+  //   img: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62',
+  //   title: 'Honey',
+  // },
+  // {
+  //   img: 'https://images.unsplash.com/photo-1516802273409-68526ee1bdd6',
+  //   title: 'Basketball',
+  // },
+  // {
+  //   img: 'https://images.unsplash.com/photo-1518756131217-31eb79b20e8f',
+  //   title: 'Fern',
+  // },
+  // {
+  //   img: 'https://images.unsplash.com/photo-1597645587822-e99fa5d45d25',
+  //   title: 'Mushrooms',
+  // },
 ];
