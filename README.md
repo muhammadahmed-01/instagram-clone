@@ -54,7 +54,7 @@
 2. **Navigate to the project folder:**
 
     ```bash
-    cd InstagramCloneReactFrontend
+    cd instagram-clone
 
 3. **Install dependencies:**
 
