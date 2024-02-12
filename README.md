@@ -49,7 +49,7 @@
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/DarkShadowFT/instagram-clone.git
+   git clone https://github.com/muhammadahmed-01/instagram-clone.git
 
 2. **Navigate to the project folder:**
 
